@@ -77,6 +77,13 @@ def wiki_extraction_logic(url):
     url_dict["passages"] = passages_list
     return url_dict
 
+'''
+def insta_extraction_logic(url):
+def tele_extraction_logic(url):
+def idf_extraction_logic(url):
+def news_extraction_logic(url):
+'''
+
 
 if __name__ == '__main__':
     #list that will contain all the dicts, dict for each url
@@ -87,26 +94,4 @@ if __name__ == '__main__':
     print("a")
 
 
-    #get the list of urls from the csv file
-    # urls = page_urls_list_from_csv("data_links.csv")
-    # for url in urls:
-    #     url_dict = {}
-    #     url_dict["url"] = url
-    #     passages_list = []
-    #     html = scrape_html(url.strip())
-    #     soup = BeautifulSoup(html, 'html.parser')
-    #     content_elements = soup.find_all("p")
-    #     content_elements = [element for element in content_elements if element.get_text() != "" and not element.get_text().isspace()]
-    #     content_elements = remove_short_elements(content_elements,15)
-    #     for element in content_elements:
-    #         #output of the relevant data
-    #         print(element.get_text())
-    #         #putting in list all relevant data
-    #         passages_list.append(element.get_text())
-    #     url_dict["passages"] = passages_list
-    #     data_object.append(url_dict)
-    # #creat json file from the list of dicts, that contains all relevant data
-    # with open("content_for_ques_json", 'w') as json_file:
-    #     json.dump(data_object, json_file, indent=2)
-    #     # print(soup.get_text())
-    print("a")
+
