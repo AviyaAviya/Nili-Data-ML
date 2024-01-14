@@ -91,7 +91,7 @@ if __name__ == '__main__':
     wiki_scraper = UrlsContentScraper("data_links.csv", wiki_extraction_logic)
     data_object.append(wiki_scraper.get_list_of_urls_dicts())
     print(data_object)
-    print("a")
+
 
 
 

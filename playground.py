@@ -5,6 +5,8 @@ from langchain.prompts import PromptTemplate
 from langchain.schema import HumanMessage
 import os
 api_key = os.getenv("OPENAI_API_KEY")
+import json
+
 
 class LLMOracle:
     def __init__(self, chat_model_name="gpt-3.5-turbo", temperature=.5):
@@ -24,7 +26,6 @@ class LLMOracle:
         embeddings = OpenAIEmbeddings(openai_api_key=api_key, request_timeout=120)
         query_result = embeddings.embed_query(text)
         return query_result
-import json
 
 class DataReader:
     def __init__(self, json_file_name):

@@ -128,28 +128,7 @@ class TopicTagger:
 
 
 
-    # def _translate_ref(self, tref: str, context: str = None):
-    #     oref = Ref(tref)
-    #     text = get_raw_ref_text(oref, 'he')
-    #     identity_message = HumanMessage(
-    #         content="You are a Jewish scholar knowledgeable in all Torah and Jewish texts. Your "
-    #                 "task is to translate the Hebrew text wrapped in <input> tags. Context may be "
-    #                 "provided in <context> tags. Use context to provide context to <input> "
-    #                 "text. Don't translate <context>. Only translate <input> text. Output "
-    #                 "translation wrapped in <translation> tags.")
-    #     task_prompt = f"<input>{text}</input>"
-    #     if context:
-    #         task_prompt = f"<context>{context}</context>{task_prompt}"
-    #     task_message = HumanMessage(content=task_prompt)
-    #     llm = ChatAnthropic(model="claude-2", temperature=0, max_tokens_to_sample=1000000)
-    #     response_message = llm([identity_message, task_message])
-    #     translation = get_by_xml_tag(response_message.content, 'translation')
-    #     if translation is None:
-    #         print("TRANSLATION FAILED")
-    #         print(tref)
-    #         print(response_message.content)
-    #         return response_message.content
-    #     return translation
+
 
     def _concatenate_strings(self, input_data):
         if isinstance(input_data, list):
@@ -175,13 +154,17 @@ class TopicTagger:
         counter =0
         result_list = []
         url_passages_tuple = self.data_reader.get_passage_url_tuples()
-        for url,passage in url_passages_tuple:
+        for passage,url in url_passages_tuple:
             if counter>=10:
                 break
             counter +=1
             topics = self.tag_passage(passage)
             result_list.append({"text":passage,"url":url,"topics":topics})
         return result_list
+
+    def save_results_to_json(self, result_list, output_file="tagged_results.json"):
+        with open(output_file, 'w') as json_file:
+            json.dump(result_list, json_file, indent=2)
 
 
 
@@ -205,5 +188,7 @@ if __name__ == '__main__':
     ]
     tagger = TopicTagger(data_reader,oracle,topics)
     tagger.tag_passage(passage_url_tuples[35][0])
+    result_list = tagger.tag_passages()
+    tagger.save_results_to_json(result_list, output_file="tagged_results.json")
     print(" ")
 
