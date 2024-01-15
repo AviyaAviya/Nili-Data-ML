@@ -7,7 +7,10 @@ import os
 import json
 api_key = os.getenv("OPENAI_API_KEY")
 import re
-
+import random
+import csv
+import json
+from tqdm import tqdm
 
 class LLMOracle:
     def __init__(self, chat_model_name="gpt-3.5-turbo", temperature=.5):
@@ -155,18 +158,104 @@ class TopicTagger:
         result_list = []
         url_passages_tuple = self.data_reader.get_passage_url_tuples()
         for passage,url in url_passages_tuple:
-            if counter>=10:
+            if counter>=50:
                 break
             counter +=1
             topics = self.tag_passage(passage)
             result_list.append({"text":passage,"url":url,"topics":topics})
         return result_list
 
-    def save_results_to_json(self, result_list, output_file="tagged_results.json"):
+
+    def save_results_to_json(self, result_list, counter, output_file="tagged_results.json"):
+        # Create a dictionary containing both result_list and the current counter
+        progress_info = {"result_list": result_list, "counter": counter}
+
         with open(output_file, 'w') as json_file:
-            json.dump(result_list, json_file, indent=2)
+            json.dump(progress_info, json_file, indent=2)
+
+    def get_random_topic(self, list_of_topics):
+        return random.choice(topics)
 
 
+
+    # def tag_sample_refs(source_csv="refs_sample.csv", dest_csv="sample_refs_tagged.csv"):
+    #     def ref_exists(file_path, ref):
+    #         # Check if the Ref already exists in the file
+    #         with open(file_path, 'r') as csvfile:
+    #             reader = csv.DictReader(csvfile)
+    #             for row in reader:
+    #                 if row['Ref'] == ref:
+    #                     return True
+    #         return False
+    #
+    #     def save_progress_info(file_path, current_index):
+    #         progress_info = {"current_index": current_index}
+    #
+    #         with open(file_path.replace(".csv", "_progress.json"), 'w') as progress_file:
+    #             json.dump(progress_info, progress_file)
+    #
+    #     trefs = load_refs_from_csv(source_csv)
+    #     data_handler = TopicsData("embedding_all_toc.jsonl")
+    #     oracle = LLMOracle()
+    #     vector_space = TopicsVectorSpace(data_handler, oracle)
+    #     verifier = TopicVerifier(data_handler, oracle)
+    #     tagger = TopicTagger(vector_space, verifier, oracle)
+    #
+    #     fieldnames = ['Ref', 'LLM Original Topics', 'Nearest Sefaria Slugs']
+    #
+    #     # Check if destination file exists
+    #     if os.path.exists(dest_csv):
+    #         # If it exists, open in append mode
+    #         mode = 'a'
+    #     else:
+    #         # If it doesn't exist, create a new file
+    #         mode = 'w'
+    #
+    #     # Load progress information from a file
+    #     try:
+    #         with open(dest_csv.replace(".csv", "_progress.json"), "r") as progress_file:
+    #             progress_info = json.load(progress_file)
+    #             start_index = progress_info.get("current_index", 0)
+    #     except (FileNotFoundError, json.JSONDecodeError):
+    #         # Handle the case where the file doesn't exist or is corrupted
+    #         start_index = 0
+    #
+    #     with open(dest_csv, mode, newline='') as csvfile:
+    #         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    #
+    #         # If it's a new file, write the header
+    #         if mode == 'w':
+    #             writer.writeheader()
+    #
+    #         for tref in tqdm(trefs[start_index:], desc="Tagging Refs", unit="Ref", initial=start_index):
+    #             # Check if the Ref already exists in the file
+    #             if not ref_exists(dest_csv, tref):
+    #                 try:
+    #                     model_topics, verified_slugs = tagger.tag_ref(tref)
+    #                     writer.writerow({
+    #                         fieldnames[0]: tref,
+    #                         fieldnames[1]: ', '.join(model_topics),
+    #                         fieldnames[2]: ', '.join(verified_slugs)
+    #                     })
+    #
+    #                     # Save progress information after processing each reference
+    #                     save_progress_info(dest_csv, trefs.index(tref) + 1)
+    #                 except Exception as e:
+    #                     print(f"Problem with ref: {tref}, Exception: {e}")
+    #
+    #     # Save the final progress information
+    #     save_progress_info(dest_csv, len(trefs))
+
+    def get_paragraphs_by_topic(self, result_list, target_topic):
+        matching_paragraphs = []
+        for entry in result_list:
+            text = entry.get("text", "")
+            topics = entry.get("topics", [])
+
+            if target_topic in topics:
+                matching_paragraphs.append({"text": text})
+
+        return matching_paragraphs
 
 if __name__ == '__main__':
     oracle = LLMOracle()
@@ -187,8 +276,42 @@ if __name__ == '__main__':
         "History of Jewish Settlements"
     ]
     tagger = TopicTagger(data_reader,oracle,topics)
-    tagger.tag_passage(passage_url_tuples[35][0])
-    result_list = tagger.tag_passages()
-    tagger.save_results_to_json(result_list, output_file="tagged_results.json")
-    print(" ")
+    topic = tagger.get_random_topic(topics)
+    #result_list = tagger.tag_passages()
+    #targeted_paragraph = tagger.get_paragraphs_by_topic(result_list,topic)
+    counter = 0  # Initialize counter
+
+    # Load progress information from a file
+    try:
+        with open("progress_info.json", "r") as progress_file:
+            progress_info = json.load(progress_file)
+            result_list = progress_info.get("result_list", [])
+            counter = progress_info.get("counter", 0)
+    except (FileNotFoundError, json.JSONDecodeError):
+        # Handle the case where the file doesn't exist or is corrupted
+        pass
+
+    # Continue the function from where it left off
+    #TODO MABYE THIS TOO WILL HAVE INTERUPTION IN THE MIDDLE
+    url_passages_tuple = tagger.data_reader.get_passage_url_tuples()
+    for passage, url in url_passages_tuple[counter:]:
+        try:
+            # Your existing code for processing each passage
+            topics = tagger.tag_passage(passage)
+            result_list.append({"text": passage, "url": url, "topics": topics})
+            counter += 1
+
+            # Save progress information periodically (every 5 passages in this example)
+            if counter % 5 == 0:
+                tagger.save_results_to_json(result_list, counter)
+        except Exception as e:
+            # Handle exceptions and save progress information before exiting
+            tagger.save_results_to_json(result_list, counter)
+            print(f"Error processing passage: {e}")
+            break
+
+    # Save the final result
+    tagger.save_results_to_json(result_list, counter)
+    #tagger.save_results_to_json(result_list, output_file="tagged_results.json")
+
 

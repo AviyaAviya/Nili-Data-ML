@@ -46,6 +46,11 @@ def scrape_html(url):
 ]
 '''
 
+
+#def save_results_to_json(data_object, output_file="content_for_ques.json"):
+#    with open(output_file, 'w') as json_file:
+#        json.dump(data_object, json_file, indent=2)
+
 class UrlsContentScraper:
 
     def __init__(self, urls_csv, extraction_logic):
@@ -90,6 +95,7 @@ if __name__ == '__main__':
     data_object = []
     wiki_scraper = UrlsContentScraper("data_links.csv", wiki_extraction_logic)
     data_object.append(wiki_scraper.get_list_of_urls_dicts())
+    #save_results_to_json(data_object,output_file="tagged_results.json")
     print(data_object)
 
 
