@@ -39,6 +39,13 @@ class DataHandler:
                 result.append(dict["text"])
         return result
 
+    def get_all_topics(self):
+        data_list = self._read_jsonl_into_list_of_dicts()
+        topics_set = set()  # Use a set to collect unique topics
+        for d in data_list:
+            topics_set.update(d.get("topics", []))  # Add all topics from the current passage
+        return list(topics_set)
+
 class UserSession:
     def __init__(self, oracle:LLMOracle, data_handler:DataHandler):
         self.oracle = oracle
@@ -79,11 +86,49 @@ class UserSession:
         })
         return question_with_answers
 
+    def quiz_to_user(self,whole_question):
+        question = whole_question[0].get("question")
+        possible_answers = whole_question[0].get("possible answers")
+
+        print(question)
+        for answer in possible_answers:
+            print(answer)
+
+        user_answer = input("Your answer: ").strip()
+        list_arg_llm= []
+        list_arg_llm.append(user_answer)
+        list_arg_llm.append(whole_question[0].get("correct_answer"))
+        result = self.oracle.query_llm("compar this two answers, return yes if they are the same meaning, otherwise return no: {0} {1}",list_arg_llm)
+        #if user_answer == whole_question[0].get("correct_answer").strip():
+        if result == "yes":
+            print("Correct!")
+        else:
+            print("Wrong.")
+
 
 if __name__== '__main__':
 
    oracle = LLMOracle()
    data_handler = DataHandler(r"C:\Users\rafi1\OneDrive\מסמכים\graduation_project\Nili-Data-ML\tagged_results.jsonl")
    user_session = UserSession(oracle,data_handler)
-   answer= user_session.genreate_question_by_topic("Israel's Diplomatic Response")
-   print(answer)
+   #answer= user_session.genreate_question_by_topic("Israel's Diplomatic Response")
+   #user_session.quiz_to_user(answer)
+   #print(answer)
+   topics = data_handler.get_all_topics()
+   # Format the list of topics into a string for display to the user
+   topics_str = "\n".join(f"{index + 1}. {topic}" for index, topic in enumerate(topics))
+
+   while True:
+
+       topic_choice = input(
+           f"Here is the list of topics, choose one:\n{topics_str}\nEnter the number of your choice: ")
+       topic_index = int(topic_choice) - 1
+       chosen_topic = topics[topic_index]
+       answer = user_session.genreate_question_by_topic(chosen_topic)
+       user_session.quiz_to_user(answer)
+
+       # Ask the user if they want to continue
+       response = input("Do you want to continue? (yes/no): ").strip().lower()
+       if response != 'yes':
+           print("see you next time!")
+           break
