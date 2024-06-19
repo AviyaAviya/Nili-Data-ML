@@ -6,7 +6,7 @@ this file target is to set up a Flask web application to display a quiz on the w
 '''
 
 from flask import Flask, jsonify
-from user_quiz import UserSession
+from user_session import UserSession
 from data_handler import DataHandler
 from llm_oracle import LLMOracle
 

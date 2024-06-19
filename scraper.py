@@ -3,7 +3,7 @@ this file target is to create the json file "content_ fot_questions" by scraping
 specifcly here inserted for now wiki links, the json file output will be list of dict where each dict include
 one key and value =the url, and key-passages and value= a list of all the paragraphs of the url
 '''
-
+import os
 import csv
 import json
 # elements in HTML
@@ -31,6 +31,8 @@ class UrlsContentScraper:
 
 # create json file of the scraped data
 def save_results_to_json(data_object, output_file="content_for_ques.json"):
+    if os.path.exists("content_for_ques.json"):
+        return
     with open(output_file, 'w') as json_file:
         json.dump(data_object, json_file, indent=2)
 
@@ -85,8 +87,10 @@ def news_extraction_logic(url):
 '''
 
 if __name__ == '__main__':
+
     # list that will contain all the dicts, dict for each url
+    #TODO from the DB we get the links
     wiki_scraper = UrlsContentScraper("wiki_links.csv", wiki_extraction_logic)
     data_object=wiki_scraper.get_list_of_urls_dicts()
     save_results_to_json(data_object, output_file="content_for_ques.json")
-    print(data_object)
+

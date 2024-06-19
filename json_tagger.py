@@ -9,6 +9,7 @@ import re
 import random
 
 from json_reader import DataReader
+from  data_handler import DataHandler
 from llm_oracle import LLMOracle
 import json
 
@@ -49,8 +50,6 @@ class TopicTagger:
 
     def _get_inferred_topics(self, template, segment_text):
         answer = self.oracle.query_llm(template, [segment_text])
-        # answer = answer.lstrip('- ').lstrip()
-        # return [topic.strip() for topic in answer.split("\n-")]
         answer = self._extract_text_to_list(answer)
         return answer
 
@@ -86,14 +85,14 @@ class TopicTagger:
         return False
 
     def process_passages(self):
+        if os.path.exists(self.output_file):
+            return
         url_passages_tuples = self.data_reader.get_passage_url_tuples()
         result_list = []
-        counter = 0
 
         for passage, url in url_passages_tuples:
             try:
-                if not self.passage_exist(passage) and counter < 3:
-                    counter += 1
+                if not self.passage_exist(passage):
                     topics = self.tag_passage(passage)
                     result = {"text": passage, "url": url, "topics": topics}
                     result_list.append(result)
@@ -104,9 +103,11 @@ class TopicTagger:
         self.save_results_to_json(result_list)
 
 
+
 if __name__ == '__main__':
     oracle = LLMOracle()
-    data_reader = DataReader("content_for_ques.json")
+    data_reader_content = DataReader("content_for_ques.json")
+    #TODO get the topics from db
     topics = [
         "Terror Organization Responsible for October 7th",
         "Population in Gaza",
@@ -118,5 +119,5 @@ if __name__ == '__main__':
         "Social Media Discourse on October 7th",
         "History of Jewish Settlements"
     ]
-    tagger = TopicTagger(data_reader, oracle, topics)
+    tagger = TopicTagger(data_reader_content, oracle, topics)
     tagger.process_passages()

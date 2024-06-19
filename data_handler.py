@@ -56,7 +56,7 @@ class DataHandler:
                     topics_set.add(topic)  # Add the topic to the set
         return list(topics_set)
 
-    def list_to_json_file(self, topics_list, file_path):
+    def topics_to_json_file(self, topics_list, file_path):
 
         with open(file_path, 'w') as json_file:
             json.dump(topics_list, json_file, indent=4)
@@ -75,3 +75,5 @@ class DataHandler:
 
         formatted_topics = [{'id': topic_id, 'topic': topic} for topic, topic_id in topics_with_ids.items()]
         return formatted_topics
+
+
