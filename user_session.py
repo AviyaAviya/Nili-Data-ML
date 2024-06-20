@@ -45,25 +45,25 @@ class UserSession:
         else:
             print(f"Wrong.The correct answer was: {correct_answer}")
 
-if __name__ == '__main__':
-
-    precomputed_questions_file = "precomputed_quiz_questions.json"
-    user_session = UserSession(precomputed_questions_file)
-    data_handler = DataHandler(r"C:\Users\rafi1\OneDrive\מסמכים\graduation_project\quiz_app_NILI\tagged_results.json")
-    topics = data_handler.get_all_topics()
-    while True:
-        print("Available topics:")
-        for i, topic in enumerate(topics, start=1):
-            print(f"{i}. {topic}")
-
-        topic_choice = int(input("Enter the number of your choice: ")) - 1
-        chosen_topic = topics[topic_choice]
-
-        question = user_session.get_precomputed_question(chosen_topic)
-
-        user_session.quiz_to_user(question)
-
-        response = input("Do you want to continue? (yes/no): ").strip().lower()
-        if response != 'yes':
-            print("See you next time!")
-            break
+# if __name__ == '__main__':
+#
+#     precomputed_questions_file = "precomputed_quiz_questions.json"
+#     user_session = UserSession(precomputed_questions_file)
+#     data_handler = DataHandler(r"C:\Users\rafi1\OneDrive\מסמכים\graduation_project\quiz_app_NILI\tagged_results.json")
+#     topics = data_handler.get_all_topics()
+#     while True:
+#         print("Available topics:")
+#         for i, topic in enumerate(topics, start=1):
+#             print(f"{i}. {topic}")
+#
+#         topic_choice = int(input("Enter the number of your choice: ")) - 1
+#         chosen_topic = topics[topic_choice]
+#
+#         question = user_session.get_precomputed_question(chosen_topic)
+#
+#         user_session.quiz_to_user(question)
+#
+#         response = input("Do you want to continue? (yes/no): ").strip().lower()
+#         if response != 'yes':
+#             print("See you next time!")
+#             break

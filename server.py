@@ -5,85 +5,44 @@ this file target is to set up a Flask web application to display a quiz on the w
 
 '''
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from user_session import UserSession
 from data_handler import DataHandler
 from llm_oracle import LLMOracle
+import pg
 
 app = Flask(__name__)
 
-data_handler = DataHandler(r"C:\Users\rafi1\OneDrive\מסמכים\graduation_project\quiz_app_NILI\tagged_results.json")
-oracle = LLMOracle()
-user_session = UserSession(oracle, data_handler)
-topics = data_handler.get_all_topics_with_ids()
+conn = pg.DB(dbname='your_database', host='your_host', port=5432, user='your_user', passwd='your_password')
 
 
+# API endpoint to fetch user details
+@app.route('/users', methods=['GET'])
+def get_users():
+    sql_query = "SELECT username, email FROM users;"
+    result = conn.query(sql_query)
 
-# TODO לחפש קליינט יותר מקצועי ולהתאים אותו אלינו
-# TODO לסדר את הפורמט בו מוצגות השאלות , כרגע זה תשובה נכונה ואז תשובות אפשריות ואז השאלה עצמה
-# TODO להוסיף אנדפוינט לקבלת תשובת יוזר והחזרה האם התשובה נכונה
+    # Process the results and return as JSON response
+    users = []
+    for row in result.getresult():
+        user = {'username': row['username'], 'email': row['email']}
+        users.append(user)
 
-
-# root
-@app.route('/', methods=['GET'])
-def hello_world():
-    return jsonify("welcom to the trivia game!")
-
-
-# get all topics
-@app.route('/topics', methods=['GET'])
-def get_topics():
-    return jsonify({'topics': topics})
+    return jsonify(users)
 
 
-#  get a specific question by ID of topic
-@app.route('/topics/<int:topic_id>', methods=['GET'])
-def get_question(topic_id):
+# API endpoint to add a new user
+@app.route('/users', methods=['POST'])
+def add_user():
+    data = request.get_json()
+    username = data.get('username')
+    email = data.get('email')
 
-    whole_question = {}
-    topic = [topic for topic in topics if topic['id'] == topic_id]
-    if len(topic) == 0:
-        return jsonify({'error': 'Topic not found'}), 404
+    # Perform SQL insert to add a new user
+    sql_query = f"INSERT INTO users (username, email) VALUES ('{username}', '{email}');"
+    conn.insert(sql_query)
 
-    question = user_session.genreate_question_by_topic(topic[0].get("topic"))
-    question, possible_answers, correct_answer = user_session.separated_question_from_answers(question)
-    whole_question['question'] = question
-    whole_question['possible_answers'] = question
-    whole_question['correct_answer'] = question
-    response = {
-        '1. question': whole_question['question'],
-        '2. possible_answers': whole_question['possible_answers'],
-        '3. correct_answer': whole_question['correct_answer']
-    }
-
-    return jsonify(response)
-
-    # return jsonify({'question': question, 'possible answers': possible_answers, 'correct answer': correct_answer})
-
-
-#  get a couple of question of the topic via ID
-@app.route('/topics/<int:topic_id>/many', methods=['GET'])
-def get_questions(topic_id):
-    whole_questions = []
-    topic = [topic for topic in topics if topic['id'] == topic_id]
-    if len(topic) == 0:
-        return jsonify({'error': 'Topic not found'}), 404
-
-        # Clear previous questions
-    whole_questions.clear()
-    # Generate and display 3 questions one after the other
-
-    for i in range(3):
-        question = user_session.genreate_question_by_topic(topic[0].get("topic"))
-        question, possible_answers, correct_answer = user_session.separated_question_from_answers(question)
-
-        whole_questions.append({
-            '1. question': question,
-            '2. possible_answers': possible_answers,
-            '3. correct_answer': correct_answer
-        })
-
-    return jsonify({'questions': whole_questions})
+    return jsonify({'message': 'User added successfully'})
 
 
 if __name__ == '__main__':
