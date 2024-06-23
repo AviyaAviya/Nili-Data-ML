@@ -24,8 +24,10 @@
     border-radius: 5px;
     display: inline-block;
     margin-top: 10px;
+    margin-left: 10px;
 }
 
 .cta-button:hover {
     background-color: #0056b3;
 }
+
