@@ -1,7 +1,7 @@
 import React from 'react';
 import DonationPlace from './DonationPlaces/DonationPlace';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import '../styles/DonationPlaces.css';
 const donationPlaces = [
     {
         name: 'ארגון נכי צהל',

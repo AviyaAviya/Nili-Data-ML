@@ -1,0 +1,66 @@
+.home-container {
+    text-align: center;
+    padding: 20px;
+    background-color: yellow; 
+    border-radius: 10px;
+    margin: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #000000;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #000000;
+    font-family: "Josefin Sans", sans-serif; 
+    font-optical-sizing: auto;
+  font-weight:100px;
+}
+
+.cta-button {
+    padding: 10px 20px;
+    background-color: #000000;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+
+}
+
+.cta-button:hover {
+    background-color: #151516;
+    color: yellow;
+}
+.carousel-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 90%; /* Limit the width of the Carousel container */
+    margin: 0 auto; /* Center horizontally */
+    padding: 20px; /* Add padding around the Carousel */
+    border: 1px solid #000000; /* Add a border with color #ccc and 1px width */
+    border-radius: 10px;
+    background-color: #fff;
+}
+.icon-left,
+.icon-right {
+    position: absolute;
+    top: 30px;
+    height: 30px; /* Adjust height to make the icons smaller */
+}
+
+.icon-left {
+    left: 30px;
+}
+
+.icon-right {
+    right: 30px;
+}
+
+/* Additional styling for icons if needed */
+
