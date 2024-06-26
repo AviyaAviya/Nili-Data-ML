@@ -1,25 +1,14 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
-import TriviaChannel from './TriviaChannel/TriviaChannel';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './styles/Home.css';
-import LoginPage from './LoginPage';
-import RegisterPage from './RegisterPage';
+import LandingPage from './LandingPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-function Home() {
-    return (
-        <div className="home-container">
-            <h1 className="title">Welcome to the Home Page!</h1>
-            <Link className="cta-button" to="/trivia">Go to Quiz App</Link>
-            <Link className="cta-button" to="/login">Go to login</Link>
-            <Link className="cta-button" to="/register">Go to register</Link>
-            <Link className="cta-button" to="/donation">Go to donation channel</Link>
-            <Link className="cta-button" to="/volunteering">Go to volunteering channel</Link>
-
-        </div>
-    );
-}
-
+import RegisterPage from './RegisterPage';
+import TriviaChannel from './TriviaChannel/TriviaChannel';
+import LoginPage from './LoginPage';
+import HomePage from './HomePage'; 
+import DonationPlaces from './DonationChannel/DonationPlaces';
+import VolunteeringPlaces from './VolunteeringChannel/VolunteeringPlaces';
 function App() {
     return (
         <Router>
@@ -27,10 +16,13 @@ function App() {
                
                 
                 <Routes>
-                <Route path="/" element={<Home />} /> 
+                <Route path="/" element={<LandingPage />} /> 
+                <Route path="/home" element={<HomePage />} /> 
                 <Route path="/trivia" element={<TriviaChannel />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
+                <Route path='/donation' element={<DonationPlaces/>}/>
+                <Route path='/volunteering' element={<VolunteeringPlaces/>}/>
                 </Routes>
                 
             </div>

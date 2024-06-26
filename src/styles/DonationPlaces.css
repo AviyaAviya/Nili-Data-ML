@@ -1,0 +1,11 @@
+.donation-place .card-img-top {
+    width: 100%;
+    height: 100px; /* Adjust the height as necessary */
+    object-fit: cover; /* Ensures the image covers the area uniformly */
+}
+body {
+    background-color: #2d9d9d; /* Light gray background, adjust as needed */
+    background-size: cover; /* Make sure the background image covers the whole page */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent the background image from repeating */
+}
