@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../styles/VolunteeringPlaces.css';
+import '../../styles/Channel.css';
 function VolunteeringPlace({ name, website, logoUrl }) {
     return (
         <div className="col-md-4 mb-4">
@@ -9,7 +9,7 @@ function VolunteeringPlace({ name, website, logoUrl }) {
                 <div className="card-body">
                     <h5 className="card-title text-center">{name}</h5>
                     <a href={website} target="_blank" rel="noopener noreferrer" className="btn btn-primary w-100">
-                        רוצה להתנדב
+                        VOLUNTEER
                     </a>
                 </div>
             </div>

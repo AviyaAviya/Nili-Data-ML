@@ -33,7 +33,7 @@
 
 .cta-button:hover {
     background-color: #151516;
-    color: yellow;
+    color: rgb(55, 10, 235);
 }
 .carousel-container {
     display: flex;

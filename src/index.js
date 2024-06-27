@@ -5,6 +5,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
+// import i18n from './il8n'; 
+
+// ReactDOM.render(
+//   <App />,
+//   document.getElementById("root")
+// );
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

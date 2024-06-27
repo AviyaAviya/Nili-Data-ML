@@ -1,25 +1,27 @@
 import React from 'react';
 import DonationPlace from './DonationPlaces/DonationPlace';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../styles/DonationPlaces.css';
+import '../styles/Channel.css';
+import CustomNavbar from '../NavBar.js'; 
+import LanguageToggle from '../LanguageToggle.js';
 const donationPlaces = [
     {
-        name: 'ארגון נכי צהל',
+        name: 'Disables Veterans',
         website: 'https://www.inz.org.il/',
         logoUrl: '/images/IDF_Disabled_Veterans.png',
     },
     {
-        name: 'ארגון קדישא',
-        website: 'https://www.kadisha.org/',
-        logoUrl: '/images/kadisha.png',
+        name: 'Zaka',
+        website: 'https://zaka.org.il/',
+        logoUrl: '/images/zaka.png',
     },
     {
-        name: 'ארגון מדא',
+        name: 'MDA',
         website: 'https://www.mdais.org/',
         logoUrl: '/images/mda.png',
     },
     {
-        name: 'ארגון נפגעי פעולות האיבה',
+        name: 'Victims Terrorism',
         website: 'https://www.irgun.org.il/',
         logoUrl: '/images/Organization_Victims_Terrorism.png',
     },
@@ -28,8 +30,11 @@ const donationPlaces = [
 
 function DonationChannel() {
     return (
+        
         <div className="container mt-5">
-            <h1 className="mb-4 text-center">Donation Channel</h1>
+            <CustomNavbar  id="navbar"/>
+            <LanguageToggle/>
+            <h1 className="mb-4-text-center">Donation Opportunities</h1>
             <div className="row">
                 {donationPlaces.map((place, index) => (
                     <DonationPlace

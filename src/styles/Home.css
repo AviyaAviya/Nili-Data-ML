@@ -1,33 +1,55 @@
-/* .home-container {
+
+.home-container {
     text-align: center;
     padding: 20px;
-    background-color: #f0f0f0;
+    background-image: url('background2.jpeg'); /* Path to your background image */
+    background-size: cover; /* Cover the entire container */
+    background-position: center; /* Center the background image */
     border-radius: 10px;
-    margin: 20px;
+    margin-top: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    color: #007bff;
-    background-color: aqua;
+    color: #000000;
+    font-family: "Josefin Sans", sans-serif; 
+    padding: 20px;
 }
 
 .title {
     font-size: 24px;
     margin-bottom: 20px;
-    color: #333;
-    background-color: pink;
+    color: #000000;
+    font-family: "Josefin Sans", sans-serif; 
+    font-optical-sizing: auto;
+  font-weight:100px;
+}
+.title1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #000000;
+    font-family: "Josefin Sans", sans-serif; 
+    font-optical-sizing: auto;
+  font-weight:100px;
+  font-size:100px;
 }
 
-.cta-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-    display: inline-block;
-    margin-top: 10px;
-    margin-left: 10px;
-}
 
-.cta-button:hover {
-    background-color: #0056b3;
+.media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Create a responsive grid */
+    grid-gap: 10px; /* Add spacing between grid items */
+    padding: 10px; /* Add padding to the media grid */
+    border: 2px solid #cabebe;
 }
- */
+.grid-item {
+    break-inside: avoid; /* Prevent grid items from breaking inside */
+    border: 1px solid #cabebe; /* Add border around each media item */
+    border-radius: 10px;
+    padding: 10px; /* Add padding to each media item */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.media {
+    width: 100%; /* Ensure the media takes up the full width of its container */
+    max-width: 100%; /* Set a maximum width for each media item */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 const LoginPage = () => {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
@@ -9,7 +8,8 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="container mt-5">
+        <div className="container mt-5" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '50vh' }}>
+            
             <div className="card p-4 shadow">
                 <h2 className="mb-3 text-center">Login</h2>
                 <form>

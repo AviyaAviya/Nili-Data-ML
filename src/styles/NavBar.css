@@ -1,0 +1,9 @@
+/* Custom CSS for hover effect */
+.navbar-light .navbar-nav .nav-link {
+    color: rgb(0, 0, 0); /* Default text color */
+    transition: color 0.3s; /* Smooth transition effect */
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color: lightgrey; /* Text color on hover */
+}

@@ -1,0 +1,20 @@
+/* LanguageToggle.css */
+
+.language-toggle {
+    display: flex;
+}
+
+.toggle-button {
+    background-color: #fff;
+    color: #333;
+    border: 2px solid #333;
+    padding: 8px 16px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.toggle-button:hover {
+    background-color: #333;
+    color: #fff;
+}

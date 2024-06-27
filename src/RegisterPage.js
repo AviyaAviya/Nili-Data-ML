@@ -11,7 +11,7 @@ const RegisterPage = () => {
         setMessage(''); // Clear any previous messages
 
         try {
-            const response = await axios.post('http://localhost:5000/register', {
+            const response = await axios.post('http://localhost:3000/register', {
                 username: name,
                 password: password
             });
@@ -25,7 +25,8 @@ const RegisterPage = () => {
     };
 
     return (
-        <div className="container mt-5">
+        <div className="container mt-5" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '50vh' }}>
+
             <div className="card p-4 shadow">
                 <h2 className="mb-3 text-center">Register</h2>
                 {/* Form element with in-line onSubmit handler */}
