@@ -3,6 +3,35 @@
 "welcome2": "In Israel's war, we're all in uniform!",
 "welcome3":"This website is for those looking to help. Whether you want to support our Global public opinion outreach,find a place to volunteer, or simply donate money to organizationsaiding in the war effort - you can find it in here.", 
 "registerButton":"Register",
-"loginButton":"Login"
+"loginButton":"Login",
 
+"form_name_r":"Register",
+"username_register":"UserName",
+"placeholder_u":"Choose your username",
+"password_register":"Password",
+"placegolder_p":"Choose your password",
+"registerButton2":"Register",
+"homepagebutton":"Go to Home Page",
+"landingpagebutton":"Go back to Landing Page",
+
+"form_name_l":"Login",
+"username_login":"UserName",
+"placeholder_u2":"Enter your username",
+"password_login":"Password",
+"placegolder_p2":"Enter your password",
+"loginButton2":"Login",
+"homepagebutton2":"Go to Home Page",
+
+"whereCanIHelp": "Where Can I Help",
+  "openHeart": "Open Heart",
+  "unitedHatzalah": "United Hatzalah",
+  "sistersFromIron": "Sisters From Iron",
+  "liveInDignity": "Live In Dignity",
+  "oneHeart": "One Heart",
+
+  "donationOpportunities": "Donation Opportunities",
+  "disabledVeterans": "Disabled Veterans",
+  "zaka": "Zaka",
+  "mda": "MDA",
+  "victimsTerrorism": "Victims of Terrorism"
 }

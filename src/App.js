@@ -8,7 +8,7 @@ import LoginPage from './LoginPage';
 import HomePage from './HomePage';
 import DonationPlaces from './DonationChannel/DonationPlaces';
 import VolunteeringPlaces from './VolunteeringChannel/VolunteeringPlaces';
-
+import UserProfile from './ProfileChannel/UserProfile';
 function App() {
     return (
         <Router>
@@ -20,6 +20,8 @@ function App() {
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path='/donation' element={<DonationPlaces />} />
                 <Route path='/volunteering' element={<VolunteeringPlaces />} />
+                <Route path='/profile' element={<UserProfile />} />
+
             </Routes>
         </Router>
     );

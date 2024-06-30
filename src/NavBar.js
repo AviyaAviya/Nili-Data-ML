@@ -13,6 +13,7 @@ const CustomNavbar = () => {
                         <Nav.Link as={Link} to="/trivia">Quiz App</Nav.Link>
                         <Nav.Link as={Link} to="/donation">Donation</Nav.Link>
                         <Nav.Link as={Link} to="/volunteering">Volunteering</Nav.Link>
+                        <Nav.Link as={Link} to="/profile">My Profile</Nav.Link>
                         
                     </Nav>
                 </Navbar.Collapse>

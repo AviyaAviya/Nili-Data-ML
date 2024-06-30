@@ -6,7 +6,9 @@ const LanguageToggle = () => {
     const { i18n } = useTranslation();
 
     const changeLanguage = (lng) => {
-        i18n.changeLanguage(lng);
+        i18n.changeLanguage(lng)
+            .then(() => console.log('Language changed successfully'))
+            .catch((err) => console.error(err));
     };
 
     return (

@@ -3,6 +3,35 @@
     "welcome2": "בזמני מלחמה, כולנו לובשים מדים",
     "welcome3":"אתר זה מיועד לאלה המחפשים דרכים לעזור. בין אם ברצונכם לתמוך במאמצי ההסברה הגלובליים שלנו, למצוא מקום להתנדב בו, או פשוט לתרום כסף לארגונים המסייעים במאמץ המלחמתי - תוכלו למצוא זאת כאן.", 
     "registerButton":"הירשם",
-    "loginButton":"התחבר"
+    "loginButton":"התחבר",
     
+    "form_name_r":"הרשמה",
+    "username_register":"שם משתמש",
+    "placeholder_u":"בחר שם משתמש",
+    "password_register":"סיסמה",
+    "placegolder_p":"בחר סיסמה",
+    "registerButton2":"הירשם",
+    "homepagebutton":"לעמוד הבית",
+    "landingpagebutton":"חזרה לעמוד הראשי",
+
+    "form_name_l":"התחברות",
+    "username_login":"שם משתמש",
+    "placeholder_u2":"הכנס שם משתמש",
+    "password_login":"סיסמה",
+    "placegolder_p2":"הכנס סיסמה",
+    "loginButton2":"התחבר",
+    "homepagebutton2":"לעמוד הבית",
+
+    "whereCanIHelp": "איפה אני יכול לעזור",
+    "openHeart": "פתחון לב",
+    "unitedHatzalah": "איחוד הצלה",
+    "sistersFromIron": "אחיות מברזל",
+    "liveInDignity": "לחיות בכבוד",
+    "oneHeart": "לב אחד",
+
+    "donationOpportunities": "הזדמנויות תרומה",
+    "disabledVeterans": "נכי צה\"ל",
+    "zaka": "זק\"א",
+    "mda": "מד\"א",
+    "victimsTerrorism": "נפגעי פעולות איבה"
     }
