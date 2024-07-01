@@ -6,15 +6,21 @@
 
 .toggle-button {
     background-color: #fff;
-    color: #333;
-    border: 2px solid #333;
+    
+    color:  royalblue;
+    border: 2px solid royalblue;
     padding: 8px 16px;
     margin: 0 5px;
     cursor: pointer;
     transition: all 0.3s;
+    border-radius: 5px;
+    background: linear-gradient(to top, royalblue 50%, white 50%);
+    background-size: 100% 100px;
 }
 
 .toggle-button:hover {
-    background-color: #333;
-    color: #fff;
+    background: linear-gradient(to top, royalblue 25%, white 25%,white 25%, royalblue 75%);
+    
+    cursor: pointer;
+    
 }

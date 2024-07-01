@@ -9,13 +9,13 @@ function LandingPage() {
     return (
         <div className="home-container">
               <LanguageToggle/>
-            <img src="images/magen_david.png" alt="left-icon" className="icon-left" />
             <h1 className="title">{t('welcome1')}</h1>
             <p>{t('welcome2')}</p><br></br>
                  <p>{t('welcome3')}</p>
             <Link className="cta-button" to="/register">{t('registerButton')}</Link>
             <Link className="cta-button" to="/login">{t('loginButton')}</Link>
             <img src="images/magen_david.png" alt="right-icon" className="icon-right" />
+            <img src="images/magen_david.png" alt="left-icon" className="icon-left" />
             <div className="carousel-container">
             <div id="landingCarousel" className="carousel carousel-fade" data-bs-ride="carousel">
                 <div className="carousel-indicators">

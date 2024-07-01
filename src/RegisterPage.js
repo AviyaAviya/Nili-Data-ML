@@ -17,14 +17,15 @@ const RegisterPage = () => {
                 username: name,
                 password: password
             });
-            setMessage('User registered successfully!');
+            setMessage(t('userRegisteredSuccess'));
             console.log('User registered:', response.data);
-            setRedirectToHome(true);
+            redirectToHomePage();
+            
         } catch (error) {
             if (error.response && error.response.data && error.response.data.error) {
-                setMessage(`Error: ${error.response.data.error}`);
+                setMessage(`${t('errorRegisteringUser')}: ${error.response.data.error}`);
             } else {
-                setMessage('Error registering user.');
+                setMessage(t('errorRegisteringUser'));
             }
             console.error('Error registering user:', error);
         }
@@ -75,13 +76,7 @@ const RegisterPage = () => {
                 </form>
                 {message && <div className="alert mt-4">{message}</div>}
                 
-                {/* Redirect button */}
-                {redirectToHome&& ( <button
-                    className="btn btn-secondary mt-3"
-                    onClick={redirectToHomePage}
-                >
-                    {t('homepagebutton')}
-                </button>)}
+               
                
                 <button
                     className="btn btn-secondary mt-3"

@@ -11,8 +11,9 @@
 "password_register":"Password",
 "placegolder_p":"Choose your password",
 "registerButton2":"Register",
-"homepagebutton":"Go to Home Page",
 "landingpagebutton":"Go back to Landing Page",
+ "userRegisteredSuccess": "User registered successfully!",
+  "errorRegisteringUser": "Error registering user.",
 
 "form_name_l":"Login",
 "username_login":"UserName",
@@ -20,7 +21,19 @@
 "password_login":"Password",
 "placegolder_p2":"Enter your password",
 "loginButton2":"Login",
-"homepagebutton2":"Go to Home Page",
+"landingpagebutton2":"Go back to Landing Page",
+  "loginSuccessful": "Login successful!",
+  "errorLoggingIn": "Error logging in.",
+
+  "home": "Home",
+  "quizApp": "Quiz App",
+  "donation": "Donation",
+  "volunteering": "Volunteering",
+  "myProfile": "My Profile",
+
+"amIsraelHai": "AM ISRAEL HAI",
+"quote": "\"For in Your holy name You swore to him that his light would never be extinguished forever and ever.\"",
+"videoUnsupported": "Your browser does not support the video tag.",
 
 "whereCanIHelp": "Where Can I Help",
   "openHeart": "Open Heart",

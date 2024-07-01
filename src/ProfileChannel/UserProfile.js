@@ -6,90 +6,106 @@ import CustomNavbar from '../NavBar.js';
 import LanguageToggle from '../LanguageToggle.js';
 
 const UserProfileChannel = () => {
-    const [donationHistory, setDonationHistory] = useState([]);
-    const [volunteeringHistory, setVolunteeringHistory] = useState([]);
-    const [newActivity, setNewActivity] = useState({ organization: '', type: 'donation', date: '', amountOrHours: '' });
+    const [name, setName] = useState('');
+    const [organization, setOrganization] = useState('');
+    const [type, setType] = useState('');
+    const [date, setDate] = useState('');
+    const [money, setMoney] = useState('');
+    const [message, setMessage] = useState('');
+  
 
     useEffect(() => {
-        // Fetch user's donation and volunteering history
-        axios.get('http://localhost:3000/user/donationHistory')
+        axios.get('http://localhost:5000/user/profile')
             .then(response => {
-                setDonationHistory(response.data);
-            })
-            .catch(error => console.error(error));
+                const { user_profile, donation_history, volunteering_history } = response.data;
 
-        axios.get('http://localhost:3000/user/volunteeringHistory')
-            .then(response => {
-                setVolunteeringHistory(response.data);
+                setName(user_profile.name);
+                setOrganization(user_profile.organization);
+                setType(user_profile.type);
+                setDate(user_profile.date);
+                setMoney(user_profile.money);
+
+            
             })
             .catch(error => console.error(error));
     }, []);
 
-    const handleActivitySubmit = (e) => {
+    const handleActivitySubmit = async (e) => {
         e.preventDefault();
-        // Make API call to save new activity data
-        axios.post('http://localhost:3000/user/activities', newActivity) 
-            .then(response => {
-                // Add the new activity to the appropriate history based on the type (donation or volunteering)
-                if (newActivity.type === 'donation') {
-                    setDonationHistory([...donationHistory, newActivity]);
-                } else {
-                    setVolunteeringHistory([...volunteeringHistory, newActivity]);
-                }
-                setNewActivity({ organization: '', type: 'donation', date: '', amountOrHours: '' });
-            })
-            .catch(error => console.error(error));
+        setMessage(''); // Clear any previous messages
+
+        try {
+            const response = await axios.post('http://localhost:5000/profile', {
+                username: name,
+                place: organization,
+                date: date,
+                amountOfMoney: money
+            });
+
+            setMessage('New place added successfully!');
+            console.log('Form submitted:', response.data);
+        }
+        catch (error) {
+            if (error.response && error.response.data && error.response.data.error) {
+                setMessage(`Error: ${error.response.data.error}`);
+            } else {
+                setMessage('Error submitting form.');
+            }
+            console.error('Error submitting form:', error);
+        }
     };
 
     return (
-        
         <div className="container mt-5">
             <CustomNavbar />
-            <LanguageToggle/>
-            <h1 className="mb-4 text-center">UserProfile</h1>
+            <LanguageToggle />
             
+
+            <div>
+                
+                
+                <p>Organization: {organization}</p>
+                <p>Type of Activity: {type}</p>
+                <p>Date: {date}</p>
+                <p>Amount of Money: {money}</p>
+               
+            </div>
+            <div>
+                
+                
+                <p>Organization: {organization}</p>
+                <p>Type of Activity: {type}</p>
+                <p>Date: {date}</p>
+                <p>Amount of Money: {money}</p>
+               
+            </div>
+
             <div className="row">
                 <div className="col-md-5">
                     <div style={{ backgroundColor: '#f8f9fa', padding: '20px', border: '1px solid #dee2e6', borderRadius: '5px' }}>
                         <h2 className="mb-4 text-center">Add New Activity</h2>
                         <form onSubmit={handleActivitySubmit} style={{ maxWidth: '400px', margin: 'auto' }}>
                             <label>Name of the Place:</label>
-                            <input type="text" className="form-control" value={newActivity.organization} onChange={(e) => setNewActivity({ ...newActivity, organization: e.target.value })} /><br />
+                            <input type="text" className="form-control" value={organization} onChange={(e) => setOrganization(e.target.value)} /><br />
                             <label>Choose Type:</label>
-                            <select className="form-select" value={newActivity.type} onChange={(e) => setNewActivity({ ...newActivity, type: e.target.value, amountOrHours: '' })}>
+                            <select className="form-select" value={type} onChange={(e) => setType(e.target.value)}>
                                 <option value="donation">Donation</option>
                                 <option value="volunteering">Volunteering</option>
                             </select><br />
                             <label>Date:</label>
-                            <input type="date" className="form-control" value={newActivity.date} onChange={(e) => setNewActivity({ ...newActivity, date: e.target.value })} /><br />
-                            {newActivity.type === "donation" && (
+                            <input type="date" className="form-control" value={date} onChange={(e) => setDate(e.target.value)} /><br />
+                            {type === "donation" && (
                                 <div>
                                     <label>Amount of Donation:</label>
-                                    <input type="number" className="form-control" value={newActivity.amountOrHours} onChange={(e) => setNewActivity({ ...newActivity, amountOrHours: e.target.value })} /><br />
+                                    <input type="number" className="form-control" value={money} onChange={(e) => setMoney(e.target.value)} /><br />
                                 </div>
                             )}
                             <button type="submit" className="btn btn-primary">Submit Activity</button>
                         </form>
                     </div>
                 </div>
-                <div className="col-md-7">
-                    <div>
-                        <h2>Donation History</h2>
-                        <ul>
-                            {donationHistory.map((activity, index) => (
-                                <li key={index}>{activity.organization} - {activity.amountOrHours} - {activity.date}</li>
-                            ))}
-                        </ul>
-                    </div>
-                    <div>
-                        <h2>Volunteering History</h2>
-                        <ul>
-                            {volunteeringHistory.map((activity, index) => (
-                                <li key={index}>{activity.organization} - {activity.amountOrHours} - {activity.date}</li>
-                            ))}
-                        </ul>
-                    </div>
-                </div>
+                
+                
             </div>
         </div>
     );
