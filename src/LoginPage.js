@@ -19,14 +19,17 @@ const LoginPage = () => {
         password: password
       });
 
-
+      const { token, username } = response.data;
+      // Store the token in localStorage
+      localStorage.setItem('token', token);
+      localStorage.setItem('username', username);     
+      
      
      
       // Handle successful login
       console.log('Login successful:', response.data);
       setMessage(t('loginSuccessful'));
       redirectToHomePage();
-      // Redirect or update UI upon successful login
     } catch (error) {
       if (error.response && error.response.data && error.response.data.error) {
         setMessage(`${t('errorLoggingIn')}: ${error.response.data.error}`);
